@@ -23,10 +23,12 @@ impl spirv::Target for Target {
 
 /// Location of a vertex attribute to override
 #[derive(Debug, Clone, Hash, Eq, PartialEq, Ord, PartialOrd)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 pub struct VertexAttributeLocation(pub u32);
 
 /// Format of the vertex attribute
 #[derive(Debug, Clone, Hash, Eq, PartialEq, Ord, PartialOrd)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 pub enum Format {
     Other,
     Uint8,
@@ -46,6 +48,7 @@ impl Format {
 
 /// Vertex attribute description for overriding
 #[derive(Debug, Clone, Hash, Eq, PartialEq)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 pub struct VertexAttribute {
     pub buffer_id: u32,
     pub format: Format,
@@ -55,6 +58,7 @@ pub struct VertexAttribute {
 
 /// Location of a resource binding to override
 #[derive(Debug, Clone, Hash, Eq, PartialEq, Ord, PartialOrd)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 pub struct ResourceBindingLocation {
     pub stage: spirv::ExecutionModel,
     pub desc_set: u32,
@@ -63,6 +67,7 @@ pub struct ResourceBindingLocation {
 
 /// Resource binding description for overriding
 #[derive(Debug, Clone, Hash, Eq, PartialEq)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 pub struct ResourceBinding {
     pub buffer_id: u32,
     pub texture_id: u32,
@@ -72,6 +77,7 @@ pub struct ResourceBinding {
 
 /// Location of a sampler binding to override
 #[derive(Debug, Clone, Hash, Eq, PartialEq, Ord, PartialOrd)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 pub struct SamplerLocation {
     pub desc_set: u32,
     pub binding: u32,
@@ -79,6 +85,7 @@ pub struct SamplerLocation {
 
 #[repr(C)]
 #[derive(Debug, Clone, Copy, Hash, Eq, PartialEq)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 pub enum SamplerCoord {
     Normalized = 0,
     Pixel = 1,
@@ -86,6 +93,7 @@ pub enum SamplerCoord {
 
 #[repr(C)]
 #[derive(Debug, Clone, Copy, Hash, Eq, PartialEq)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 pub enum SamplerFilter {
     Nearest = 0,
     Linear = 1,
@@ -93,6 +101,7 @@ pub enum SamplerFilter {
 
 #[repr(C)]
 #[derive(Debug, Clone, Copy, Hash, Eq, PartialEq)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 pub enum SamplerMipFilter {
     None = 0,
     Nearest = 1,
@@ -101,6 +110,7 @@ pub enum SamplerMipFilter {
 
 #[repr(C)]
 #[derive(Debug, Clone, Copy, Hash, Eq, PartialEq)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 pub enum SamplerAddress {
     ClampToZero = 0,
     ClampToEdge = 1,
@@ -111,6 +121,7 @@ pub enum SamplerAddress {
 
 #[repr(C)]
 #[derive(Debug, Clone, Copy, Hash, Eq, PartialEq)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 pub enum SamplerCompareFunc {
     Never = 0,
     Less = 1,
@@ -124,6 +135,7 @@ pub enum SamplerCompareFunc {
 
 #[repr(C)]
 #[derive(Debug, Clone, Copy, Hash, Eq, PartialEq)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 pub enum SamplerBorderColor {
     TransparentBlack = 0,
     OpaqueBlack = 1,
@@ -132,6 +144,7 @@ pub enum SamplerBorderColor {
 
 #[repr(transparent)]
 #[derive(Debug, Clone, Copy, Hash, Eq, PartialEq)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 pub struct LodBase16(u8);
 
 impl LodBase16 {
@@ -154,6 +167,7 @@ impl Into<f32> for LodBase16 {
 /// MSL format resolution.
 #[repr(C)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 pub enum FormatResolution {
     _444 = 0,
     _422 = 1,
@@ -163,6 +177,7 @@ pub enum FormatResolution {
 /// MSL chroma location.
 #[repr(C)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 pub enum ChromaLocation {
     CositedEven = 0,
     LocationMidpoint = 1,
@@ -171,6 +186,7 @@ pub enum ChromaLocation {
 /// MSL component swizzle.
 #[repr(C)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 pub enum ComponentSwizzle {
     Identity = 0,
     Zero = 1,
@@ -183,6 +199,7 @@ pub enum ComponentSwizzle {
 
 /// Data fully defining a constant sampler.
 #[derive(Debug, Clone, Hash, Eq, PartialEq)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 pub struct SamplerData {
     pub coord: SamplerCoord,
     pub min_filter: SamplerFilter,
@@ -212,6 +229,7 @@ pub struct SamplerData {
 /// A MSL sampler YCbCr model conversion.
 #[repr(C)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 pub enum SamplerYCbCrModelConversion {
     RgbIdentity = 0,
     YCbCrIdentity = 1,
@@ -223,6 +241,7 @@ pub enum SamplerYCbCrModelConversion {
 /// A MSL sampler YCbCr range.
 #[repr(C)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 pub enum SamplerYCbCrRange {
     ItuFull = 0,
     ItuNarrow = 1,
@@ -232,6 +251,7 @@ pub enum SamplerYCbCrRange {
 #[repr(u8)]
 #[allow(non_snake_case, non_camel_case_types)]
 #[derive(Copy, Clone, Debug, Hash, Eq, PartialEq)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 pub enum Platform {
     iOS = 0,
     macOS = 1,
@@ -239,6 +259,7 @@ pub enum Platform {
 
 /// A MSL shader model version.
 #[derive(Copy, Clone, Debug, Hash, Eq, PartialEq)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 #[non_exhaustive]
 pub enum Version {
     V1_0,
@@ -266,6 +287,7 @@ impl Version {
 }
 
 #[derive(Debug, Clone, Hash, Eq, PartialEq)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 pub struct CompilerVertexOptions {
     pub invert_y: bool,
     pub transform_clip_space: bool,
@@ -283,6 +305,7 @@ impl Default for CompilerVertexOptions {
 /// MSL compiler options.
 #[non_exhaustive]
 #[derive(Debug, Clone, Hash, Eq, PartialEq)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 pub struct CompilerOptions {
     /// The target platform.
     pub platform: Platform,

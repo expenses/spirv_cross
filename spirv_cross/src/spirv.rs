@@ -11,6 +11,7 @@ pub struct CombinedImageSampler {
 
 /// A stage or compute kernel.
 #[derive(Copy, Clone, Debug, Hash, Eq, PartialEq, Ord, PartialOrd)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 pub enum ExecutionModel {
     Vertex,
     TessellationControl,
@@ -80,6 +81,7 @@ pub enum VertexAttributeStep {
 }
 
 #[derive(Copy, Clone, Debug, Hash, Eq, PartialEq)]
+#[cfg_attr(feature = "serialize", derive(serde::Serialize, serde::Deserialize))]
 pub enum BuiltIn {
     Position,
     PointSize,
